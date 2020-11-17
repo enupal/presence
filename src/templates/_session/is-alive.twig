@@ -1,0 +1,7 @@
+{% do view.registerAssetBundle("enupal\\presence\\web\\PresenceAsset") %}
+
+{% js %}
+    $(document).ready(function() {
+    new EnupalPresence({{currentUser.id}}, {{ entryId }});
+    });
+{% endjs %}

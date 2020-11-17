@@ -1,0 +1,22 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Presence plugin for Craft
+ *
+ * @author    Enupal
+ * @copyright Copyright (c) 2020 Enupal
+ * @link      https://enupal.com
+ * @package   Presence
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+    label: 'Timeout',
+    instructions: 'Timeout in seconds. Default is 60',
+    id: 'refreshSessionToken',
+    name: 'refreshSessionToken',
+    errors: settings.getErrors('refreshSessionToken'),
+    value: settings['refreshSessionToken']}) }}

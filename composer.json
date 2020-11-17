@@ -1,0 +1,34 @@
+{
+  "name": "enupal/presence",
+    "description": "View active users editing current entry",
+  "version": "0.9.0",
+  "type": "craft-plugin",
+  "autoload": {
+    "psr-4": {
+      "enupal\\presence\\": "src/"
+    }
+  },
+  "require": {
+    "craftcms/cms": "^3.4.0"
+  },
+  "authors": [
+    {
+      "name": "Enupal",
+      "homepage": "https://enupal.com"
+    }
+  ],
+  "support": {
+    "email": "info@enupal.com",
+    "issues": "https://github.com/enupal/presence/issues",
+    "docs": "https://docs.enupal.com/presence"
+  },
+  "extra": {
+    "name": "Presence",
+    "handle": "enupal-presence",
+    "developer": "Enupal",
+    "class": "enupal\\presence\\Presence",
+    "components": {
+      "app": "enupal\\presence\\services\\App"
+    }
+  }
+}
