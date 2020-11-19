@@ -24,10 +24,6 @@ class PresenceController extends BaseController
     public function actionIsAlive()
     {
         $this->requireAcceptsJson();
-        $response = [
-            'success' => true,
-            'errors' => []
-        ];
 
         $userId = $this->request->getRequiredBodyParam('userId');
         $elementId = $this->request->getRequiredBodyParam('elementId');
@@ -43,6 +39,12 @@ class PresenceController extends BaseController
         }
 
         Presence::$app->presence->isAlive($user, $element);
+        $userPhotos = Presence::$app->presence->getCurrentUsers($user, $element);
+
+        $response = [
+            'success' => true,
+            'userPhotos' => $userPhotos
+        ];
 
         // Redirect back to page
         return $this->asJson($response);

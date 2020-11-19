@@ -22,7 +22,8 @@
         {
             this.userId = userId;
             this.elementId = elementId;
-            setInterval($.proxy(this, 'isAlive'),6000);
+            setInterval($.proxy(this, 'isAlive'), 5000);
+            $("#details").append('<div id="enupal-presence" class="meta read-only hidden"></div>');
         },
 
         isAlive: function(event)
@@ -37,7 +38,18 @@
                 if (textStatus === 'success') {
                     if (response.success)
                     {
-                        console.log('OK');
+                        if (response.userPhotos) {
+                            if (response.userPhotos.length) {
+                                $("#enupal-presence").removeClass('hidden');
+                                $("#enupal-presence").html(response.userPhotos);
+                            }else {
+                                $("#enupal-presence").addClass('hidden');
+                            }
+
+                        } else {
+                            $("#enupal-presence").addClass('hidden');
+                        }
+
                     }
                 }
                 else {

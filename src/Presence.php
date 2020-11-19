@@ -49,7 +49,7 @@ class Presence extends Plugin
             }
         );
 
-        Craft::$app->view->hook('cp.entries.edit.content', function(array &$context) {
+        Craft::$app->view->hook('cp.entries.edit.meta', function(array &$context) {
             $view = Craft::$app->getView();
             return $view->renderTemplate('enupal-presence/_session/is-alive', ['entryId' => $context['entryId']]);
         });

@@ -1,0 +1,10 @@
+<div class="header-photo " style="display: inline-block; padding-left:4px">
+    {{ tag('img', {
+        width: 30,
+        height: 30,
+        sizes: '30px',
+        srcset: "#{user.getThumbUrl(30)} 30w, #{user.getThumbUrl(60)} 60w",
+        alt: user.getName(),
+        title: user.getName(),
+    }) }}
+</div>

@@ -69,7 +69,6 @@ class Install extends Migration
     protected function createTables()
     {
         $this->createTable(self::SESSION_TABLE, [
-            'id' => $this->primaryKey(),
             'userId' => $this->integer(),
             'elementId' => $this->integer(),
             'lastDateAlive' => $this->dateTime()->notNull(),
