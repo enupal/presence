@@ -70,7 +70,7 @@ class Presence extends Component
 
         foreach ($users as $user) {
             $userElement = Craft::$app->getUsers()->getUserById($user['userId']);
-            $userPhotos[] = $view->renderTemplate('enupal-presence/_presence/userphoto', ['user' => $userElement]);
+            $userPhotos[$userElement->id] = $view->renderTemplate('enupal-presence/_presence/userphoto', ['user' => $userElement]);
         }
 
         return $userPhotos;

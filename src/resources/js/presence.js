@@ -14,6 +14,7 @@
 
         userId: null,
         elementId:null,
+        hashMap: {},
 
         /**
          * The constructor.
@@ -39,15 +40,23 @@
                     if (response.success)
                     {
                         if (response.userPhotos) {
-                            if (response.userPhotos.length) {
-                                $("#enupal-presence").removeClass('hidden');
-                                $("#enupal-presence").html(response.userPhotos);
-                            }else {
-                                $("#enupal-presence").addClass('hidden');
+                            $("#enupal-presence").removeClass('hidden');
+                            var currentUserIds = {};
+                            for( var userId in response.userPhotos ) {
+                                if (that.hashMap.hasOwnProperty(userId)) {
+                                    console.log('we already have this one');
+                                    continue;
+                                }
+                                $("#enupal-presence").html(response.userPhotos[userId]);
+                                that.hashMap[userId] = true;
+                                currentUserIds[userId] = true;
                             }
-
-                        } else {
-                            $("#enupal-presence").addClass('hidden');
+                            //after finish loop, check difference that.hashMap and currentUsersIds and add fade effect to remove div
+                            /*
+                            for( var userId in response.userPhotos ) {
+                                console.log(userId);
+                                $("#enupal-presence").html(response.userPhotos[userId]);
+                            }*/
                         }
 
                     }
