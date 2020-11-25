@@ -60,7 +60,7 @@ class Presence extends Component
             ->select('userId')
             ->from(Install::SESSION_TABLE)
             ->where(['elementId' => $element->id])
-            ->andWhere(['>=', 'lastDateAlive', $date10SecondsAgo])
+            //->andWhere(['>=', 'lastDateAlive', $date10SecondsAgo])
             ->andWhere(['<>', 'userId', $userToExclude->id])
             ->limit(null)
             ->all();

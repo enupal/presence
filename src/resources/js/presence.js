@@ -39,26 +39,41 @@
                 if (textStatus === 'success') {
                     if (response.success)
                     {
+                        var currentUserIds = {};
+
                         if (response.userPhotos) {
                             $("#enupal-presence").removeClass('hidden');
-                            var currentUserIds = {};
-                            for( var userId in response.userPhotos ) {
+                            for (var userId in response.userPhotos) {
                                 if (that.hashMap.hasOwnProperty(userId)) {
+                                    $("#presence-user" + userId).removeClass('hidden');
                                     console.log('we already have this one');
                                     continue;
                                 }
-                                $("#enupal-presence").html(response.userPhotos[userId]);
+                                $("#enupal-presence").hide().append(response.userPhotos[userId]).fadeIn('slow');
                                 that.hashMap[userId] = true;
                                 currentUserIds[userId] = true;
                             }
-                            //after finish loop, check difference that.hashMap and currentUsersIds and add fade effect to remove div
-                            /*
-                            for( var userId in response.userPhotos ) {
-                                console.log(userId);
-                                $("#enupal-presence").html(response.userPhotos[userId]);
-                            }*/
                         }
 
+                        var copy = $.extend(true,{},that.hashMap);
+                        console.log(copy);
+
+                        if (currentUserIds) {
+                            for(var userId in currentUserIds) {
+                                delete copy[userId];
+                            }
+                        }
+
+                        if (copy) {
+                            for(var userId in copy) {
+                                console.log(userId);
+                                // Hide they are no loger viewing
+                                $("#presence-user"+userId).fadeOut("normal", function() {
+                                    console.log('removing element');
+                                    $(this).addClass('hidden');
+                                });
+                            }
+                        }
                     }
                 }
                 else {
