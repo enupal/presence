@@ -51,7 +51,7 @@ class Presence extends Component
      */
     public function getCurrentUsers(ElementInterface $userToExclude, ElementInterface $element)
     {
-        $date = $this->getTodayDateSubtract10Seconds();
+        $date = $this->getTodayDateSubtractSeconds();
         $date = DateTimeHelper::toDateTime($date);
         $date->setTimezone(new \DateTimeZone('UTC'));
         $date10SecondsAgo = $date->format('Y-m-d H:i:s');
@@ -60,7 +60,7 @@ class Presence extends Component
             ->select('userId')
             ->from(Install::SESSION_TABLE)
             ->where(['elementId' => $element->id])
-            //->andWhere(['>=', 'lastDateAlive', $date10SecondsAgo])
+            ->andWhere(['>=', 'lastDateAlive', $date10SecondsAgo])
             ->andWhere(['<>', 'userId', $userToExclude->id])
             ->limit(null)
             ->all();
@@ -76,10 +76,10 @@ class Presence extends Component
         return $userPhotos;
     }
 
-    private function getTodayDateSubtract10Seconds()
+    private function getTodayDateSubtractSeconds(int $seconds = 5)
     {
         $time = new \DateTime();
-        $time->modify("-10 second");
+        $time->modify("-".$seconds." second");
 
         return $time;
     }
