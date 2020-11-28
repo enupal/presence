@@ -70,7 +70,8 @@ class Presence extends Component
 
         foreach ($users as $user) {
             $userElement = Craft::$app->getUsers()->getUserById($user['userId']);
-            $userPhotos[$userElement->id] = $view->renderTemplate('enupal-presence/_presence/userphoto', ['user' => $userElement]);
+            $randColor = $this->randHexColor();
+            $userPhotos[$userElement->id] = $view->renderTemplate('enupal-presence/_presence/userphoto', ['user' => $userElement, 'randColor' => $randColor]);
         }
 
         return $userPhotos;
@@ -82,5 +83,13 @@ class Presence extends Component
         $time->modify("-".$seconds." second");
 
         return $time;
+    }
+
+    /**
+     * @return string hex color string (RGB): #XXXXXX
+     */
+    public function randHexColor()
+    {
+        return sprintf("#%06s", dechex(rand(0, 256**3-1)));
     }
 }
