@@ -30,6 +30,10 @@ class PresenceAsset extends AssetBundle
             'js/presence.js'
         ];
 
+        $this->css = [
+            'css/presence.css'
+        ];
+
         parent::init();
     }
 }

@@ -51,7 +51,7 @@ class Presence extends Component
      */
     public function getCurrentUsers(ElementInterface $userToExclude, ElementInterface $element)
     {
-        $date = $this->getTodayDateSubtract10Seconds();
+        $date = $this->getTodayDateSubtractSeconds();
         $date = DateTimeHelper::toDateTime($date);
         $date->setTimezone(new \DateTimeZone('UTC'));
         $date10SecondsAgo = $date->format('Y-m-d H:i:s');
@@ -60,7 +60,7 @@ class Presence extends Component
             ->select('userId')
             ->from(Install::SESSION_TABLE)
             ->where(['elementId' => $element->id])
-            //->andWhere(['>=', 'lastDateAlive', $date10SecondsAgo])
+            ->andWhere(['>=', 'lastDateAlive', $date10SecondsAgo])
             ->andWhere(['<>', 'userId', $userToExclude->id])
             ->limit(null)
             ->all();
@@ -70,17 +70,26 @@ class Presence extends Component
 
         foreach ($users as $user) {
             $userElement = Craft::$app->getUsers()->getUserById($user['userId']);
-            $userPhotos[$userElement->id] = $view->renderTemplate('enupal-presence/_presence/userphoto', ['user' => $userElement]);
+            $randColor = $this->randHexColor();
+            $userPhotos[$userElement->id] = $view->renderTemplate('enupal-presence/_presence/userphoto', ['user' => $userElement, 'randColor' => $randColor]);
         }
 
         return $userPhotos;
     }
 
-    private function getTodayDateSubtract10Seconds()
+    private function getTodayDateSubtractSeconds(int $seconds = 5)
     {
         $time = new \DateTime();
-        $time->modify("-10 second");
+        $time->modify("-".$seconds." second");
 
         return $time;
+    }
+
+    /**
+     * @return string hex color string (RGB): #XXXXXX
+     */
+    public function randHexColor()
+    {
+        return sprintf("#%06s", dechex(rand(0, 256**3-1)));
     }
 }

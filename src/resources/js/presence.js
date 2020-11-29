@@ -15,6 +15,7 @@
         userId: null,
         elementId:null,
         hashMap: {},
+        firstLoad: true,
 
         /**
          * The constructor.
@@ -25,6 +26,28 @@
             this.elementId = elementId;
             setInterval($.proxy(this, 'isAlive'), 5000);
             $("#details").append('<div id="enupal-presence" class="meta read-only hidden"></div>');
+        },
+
+        hideElements: function(elements)
+        {
+            for(var userId in elements) {
+                // Hide they are no loger viewing
+                this.hideUser(userId);
+            }
+        },
+
+        hideUser(userId)
+        {
+            $("#presence-user-"+userId).fadeOut("normal", function() {
+                $(this).addClass('hidden');
+            });
+        },
+
+        displayUser(userId)
+        {
+            $("#presence-user-"+userId).fadeIn("normal", function() {
+                $(this).removeClass('hidden').css("display", "inline-block");
+            });
         },
 
         isAlive: function(event)
@@ -42,22 +65,26 @@
                         var currentUserIds = {};
 
                         if (response.userPhotos) {
-                            $("#enupal-presence").removeClass('hidden');
                             for (var userId in response.userPhotos) {
+                                if ($("#enupal-presence").hasClass('hidden')) {
+                                    $("#enupal-presence").removeClass('hidden').css("display", "");
+                                }
+                                currentUserIds[userId] = true;
                                 if (that.hashMap.hasOwnProperty(userId)) {
-                                    $("#presence-user" + userId).removeClass('hidden');
-                                    console.log('we already have this one');
+                                    that.displayUser(userId);
                                     continue;
                                 }
-                                $("#enupal-presence").hide().append(response.userPhotos[userId]).fadeIn('slow');
+                                $("#enupal-presence").append(response.userPhotos[userId]).fadeIn('slow');
                                 that.hashMap[userId] = true;
-                                currentUserIds[userId] = true;
+                            }
+                            // ignore the first time
+                            if (that.firstLoad) {
+                                that.firstLoad = false;
+                                return;
                             }
                         }
 
                         var copy = $.extend(true,{},that.hashMap);
-                        console.log(copy);
-
                         if (currentUserIds) {
                             for(var userId in currentUserIds) {
                                 delete copy[userId];
@@ -65,14 +92,13 @@
                         }
 
                         if (copy) {
-                            for(var userId in copy) {
-                                console.log(userId);
-                                // Hide they are no loger viewing
-                                $("#presence-user"+userId).fadeOut("normal", function() {
-                                    console.log('removing element');
-                                    $(this).addClass('hidden');
-                                });
-                            }
+                            that.hideElements(copy);
+                        }
+
+                        if ($.isEmptyObject(currentUserIds)) {
+                            $("#enupal-presence").fadeOut("normal", function() {
+                                $(this).addClass('hidden');
+                            });
                         }
                     }
                 }

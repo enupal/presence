@@ -1,7 +1,7 @@
 {
   "name": "enupal/presence",
-    "description": "View active users editing current entry",
-  "version": "0.9.0",
+    "description": "Display current users editing an entry.",
+  "version": "1.0.0",
   "type": "craft-plugin",
   "autoload": {
     "psr-4": {
@@ -9,7 +9,7 @@
     }
   },
   "require": {
-    "craftcms/cms": "^3.4.0"
+    "craftcms/cms": "^3.0.0"
   },
   "authors": [
     {

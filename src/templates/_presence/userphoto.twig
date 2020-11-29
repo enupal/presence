@@ -1,4 +1,5 @@
-<div id="presence-user-{{ user.id }}" data-id="{{ user.id }}" class="header-photo " style="display: inline-block; padding-left:4px">
+{% if user.getPhoto() %}
+<div id="presence-user-{{ user.id }}" data-id="{{ user.id }}" class="header-photo presence">
     {{ tag('img', {
         width: 30,
         height: 30,
@@ -8,3 +9,11 @@
         title: user.getName(),
     }) }}
 </div>
+{% else %}
+    <div class="customer-photo-wrapper header-photo presence" id="presence-user-{{ user.id }}" data-id="{{ user.id }}" >
+        <div class="customer-photo order-flex justify-center align-center customer-photo--initial customer-avatar-green"><!---->
+            <div title="{{ user.getName() }}">{{ user.getName()|slice(0, 1) }}</div><!---->
+        </div>
+    </div>
+
+{% endif %}
