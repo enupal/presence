@@ -66,14 +66,15 @@
 
                         if (response.userPhotos) {
                             for (var userId in response.userPhotos) {
-                                $("#enupal-presence").removeClass('hidden').css("display", "");
+                                if ($("#enupal-presence").hasClass('hidden')) {
+                                    $("#enupal-presence").removeClass('hidden').css("display", "");
+                                }
                                 currentUserIds[userId] = true;
                                 if (that.hashMap.hasOwnProperty(userId)) {
                                     that.displayUser(userId);
                                     continue;
                                 }
-
-                                $("#enupal-presence").hide().append(response.userPhotos[userId]).fadeIn('slow');
+                                $("#enupal-presence").append(response.userPhotos[userId]).fadeIn('slow');
                                 that.hashMap[userId] = true;
                             }
                             // ignore the first time
