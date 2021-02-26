@@ -20,3 +20,11 @@
     name: 'refreshSessionToken',
     errors: settings.getErrors('refreshSessionToken'),
     value: settings['refreshSessionToken']}) }}
+
+{{ forms.textField({
+    label: 'Display Container ID',
+    instructions: 'This is where current users will be displayed on an entry page (default is #details)',
+    id: 'displayContainer',
+    name: 'displayContainer',
+    errors: settings.getErrors('displayContainer'),
+    value: settings['displayContainer']}) }}

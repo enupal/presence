@@ -13,4 +13,5 @@ use craft\base\Model;
 class Settings extends Model
 {
     public $refreshSessionToken = 6000;
+    public $displayContainer = '#details';
 }

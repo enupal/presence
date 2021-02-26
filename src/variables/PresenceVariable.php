@@ -13,5 +13,8 @@ use enupal\presence\Presence;
 
 class PresenceVariable
 {
+    public function displayContainer()
+    {
+        return Presence::getInstance()->settings->displayContainer;
+    }
 }
-

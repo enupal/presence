@@ -20,12 +20,12 @@
         /**
          * The constructor.
          */
-        init: function(userId, elementId)
+        init: function(userId, elementId, displayContainer)
         {
             this.userId = userId;
             this.elementId = elementId;
             setInterval($.proxy(this, 'isAlive'), 5000);
-            $("#details").append('<div id="enupal-presence" class="meta read-only hidden"></div>');
+            $(displayContainer).append('<div id="enupal-presence" class="meta read-only hidden"></div>');
         },
 
         hideElements: function(elements)
