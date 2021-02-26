@@ -28,7 +28,7 @@ class Presence extends Plugin
 
     public $hasCpSection = false;
 
-    public $hasCpSettings = false;
+    public $hasCpSettings = true;
 
     public $schemaVersion = '1.0.0';
 

@@ -2,6 +2,6 @@
 
 {% js %}
     $(document).ready(function() {
-    new EnupalPresence({{currentUser.id}}, {{ entryId }});
+        new EnupalPresence({{currentUser.id}}, {{ entryId }}, "{{ craft.presence.displayContainer }}");
     });
 {% endjs %}
