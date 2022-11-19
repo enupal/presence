@@ -9,7 +9,10 @@
 namespace enupal\presence;
 
 use Craft;
+use craft\base\Element;
 use craft\base\Plugin;
+use craft\elements\Entry;
+use craft\events\DefineHtmlEvent;
 use craft\web\twig\variables\CraftVariable;
 use enupal\presence\services\App;
 use enupal\presence\variables\PresenceVariable;
@@ -49,10 +52,20 @@ class Presence extends Plugin
             }
         );
 
-        Craft::$app->view->hook('cp.entries.edit.meta', function(array &$context) {
-            $view = Craft::$app->getView();
-            return $view->renderTemplate('enupal-presence/_session/is-alive', ['entryId' => $context['entryId']]);
-        });
+        // Register presence
+        Event::on(
+            Element::class,
+            Element::EVENT_DEFINE_SIDEBAR_HTML,
+            function (DefineHtmlEvent $event) {
+                $entry = $event->sender;
+                if (get_class($entry) !== Entry::class) {
+                    return null;
+                }
+
+                $view = Craft::$app->getView();
+                $view->renderTemplate('enupal-presence/_session/is-alive', ['entryId' => $entry->id]);
+            }
+        );
     }
 
     protected function createSettingsModel(): ?\craft\base\Model
