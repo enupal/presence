@@ -25,7 +25,7 @@
             this.userId = userId;
             this.elementId = elementId;
             setInterval($.proxy(this, 'isAlive'), 5000);
-            $("#details").append('<div id="enupal-presence" class="meta read-only hidden"></div>');
+            $("#details .details").append('<div id="enupal-presence" class="meta hidden"></div>');
         },
 
         hideElements: function(elements)

@@ -22,7 +22,7 @@ class App extends Component
      */
     public $settings;
 
-    public function init()
+    public function init(): void
     {
         $this->presence = new Presence();
         $this->settings = new Settings();
