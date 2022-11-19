@@ -26,11 +26,11 @@ class Presence extends Plugin
      */
     public static $app;
 
-    public $hasCpSection = false;
+    public bool $hasCpSection = false;
 
-    public $hasCpSettings = false;
+    public bool $hasCpSettings = false;
 
-    public $schemaVersion = '1.0.0';
+    public string $schemaVersion = '1.0.0';
 
     public function init()
     {
@@ -55,7 +55,7 @@ class Presence extends Plugin
         });
     }
 
-    protected function createSettingsModel()
+    protected function createSettingsModel(): ?\craft\base\Model
     {
         return new Settings();
     }
