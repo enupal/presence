@@ -33,7 +33,7 @@ class Presence extends Plugin
 
     public bool $hasCpSettings = false;
 
-    public string $schemaVersion = '1.0.0';
+    public string $schemaVersion = '2.0.0';
 
     public function init()
     {
