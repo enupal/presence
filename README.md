@@ -16,6 +16,17 @@ Display current users editing an entry. The users will be displayed in the right
 - Setting to adjust background color for users with no pictures.
 
 ![Screenshot](resources/screenshots/presence.gif)
+
+## Documentation
+
+https://docs.enupal.com/presence/
+
+## Presence Support
+
+* Send us a note at: support@enupal.com
+
+* Create an [issue](https://github.com/enupal/presence/issues) on Github
+
 ------------------------------------------------------------
 
 Brought to you by [enupal](https://enupal.com/en)
